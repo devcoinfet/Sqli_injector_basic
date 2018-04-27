@@ -14,7 +14,7 @@ from random import choice
 
 scrape_post_urls = []
 get_inj_tests = []
-basic_sql = "%27"
+basic_sql = "'"
 #check multiple values to  strip out duplicate and useless checks
 def parse_url(url):
     parsed = urlparse(url,allow_fragments=False)
@@ -85,14 +85,14 @@ def main():
         #here we will manipulate the url paramters and create a basic vuln scanner
         for k,v in dicty.iteritems():
             print dicty[k]
-            entry_data_local = {k:basic_sql}
+            entry_data_local = {k:v + basic_sql}
             temp_sqli_query.update(entry_data_local)
-            reaasembled_query = urlencode(temp_sqli_query)
-            full_url = reaasembled_url + reaasembled_query
-            print full_url
-            #now we call the sql injection test
-            status,encoding,text = requester_get(full_url)
-            print status,encoding,text
+        reaasembled_query = urlencode(temp_sqli_query)
+        full_url = reaasembled_url + reaasembled_query
+        print full_url
+        #now we call the sql injection test
+        status,encoding,text = requester_get(full_url)
+        print status,encoding,text
         
       
        
